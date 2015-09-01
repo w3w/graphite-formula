@@ -1,12 +1,12 @@
 include:
   - graphite.supervisor
 
-{%- if 'monitor_master' in salt['grains.get']('roles', []) %}
-
 {%- from 'graphite/settings.sls' import graphite with context %}
 
 install-deps:
   pkg.installed:
+    - require_in:
+      - pip: supervisor
     - names:
       - memcached
       - python-pip
@@ -190,5 +190,3 @@ nginx:
     - reload: True
     - watch:
       - file: /etc/nginx/conf.d/graphite.conf
-
-{%- endif %}
