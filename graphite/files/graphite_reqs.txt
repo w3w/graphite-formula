@@ -5,4 +5,4 @@ Twisted==11.1.0
 daemonize
 whisper=={{ graphite_version }}
 carbon=={{ graphite_version }}
-graphite-web=={{ graphite_version }}
+graphite-api
