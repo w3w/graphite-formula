@@ -12,7 +12,6 @@ install-deps:
       - python-pip
       - nginx
       - gcc
-      - MySQL-python
 {%- if grains['os_family'] == 'Debian' %}
       - python-dev
       - sqlite3
@@ -57,10 +56,6 @@ install-graphite-apps:
     - require:
       - file: /tmp/graphite_reqs.txt
       - pkg: install-deps
-
-/opt/graphite/webapp/graphite/app_settings.py:
-  file.append:
-    - text: SECRET_KEY = '34960c411f3c13b362d33f8157f90d958f4ff1494d7568e58e0279df7450445ec496d8aaa098271e'
 
 graphite_group:
   group.present:
@@ -118,28 +113,6 @@ local-dirs:
       - /var/run/carbon
       - /var/log/carbon
 
-/opt/graphite/webapp/graphite/local_settings.py:
-  file.managed:
-    - source: salt://graphite/files/local_settings.py
-    - template: jinja
-    - context:
-      dbtype: {{ graphite.dbtype }}
-      dbname: {{ graphite.dbname }}
-      dbuser: {{ graphite.dbuser }}
-      dbpassword: {{ graphite.dbpassword }}
-      dbhost: {{ graphite.dbhost }}
-      dbport: {{ graphite.dbport }}
-
-# django database fixtures
-{{ graphite.prefix }}/webapp/graphite/initial_data.yaml:
-  file.managed:
-    - source: salt://graphite/files/initial_data.yaml
-    - template: jinja
-    - context:
-      admin_email: {{ graphite.admin_email }}
-      admin_user: {{ graphite.admin_user }}
-      admin_password: {{ graphite.admin_password }}
-
 /opt/graphite/conf/storage-schemas.conf:
   file.managed:
     - source: salt://graphite/files/storage-schemas.conf
@@ -157,13 +130,6 @@ local-dirs:
       graphite_pickle_port: {{ graphite.pickle_port }}
       max_creates_per_minute: {{ graphite.max_creates_per_minute }}
       max_updates_per_second: {{ graphite.max_updates_per_second }}
-
-{%- if graphite.dbtype == 'sqlite3' %}
-initialize-graphite-db-sqlite3:
-  cmd.run:
-    - cwd: {{ graphite.prefix }}/webapp/graphite
-    - name:  python manage.py syncdb --noinput
-{%- endif %}
 
 /etc/supervisor/conf.d/graphite.conf:
   file.managed:
