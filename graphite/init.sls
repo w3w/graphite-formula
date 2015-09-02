@@ -11,6 +11,7 @@ install-deps:
       - python-pip
       - nginx
       - gcc
+      - libffi-dev
 {%- if grains['os_family'] == 'Debian' %}
       - python-dev
       - sqlite3
