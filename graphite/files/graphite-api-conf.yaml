@@ -7,6 +7,13 @@ functions:
 whisper:
   directories:
     - /opt/graphite/storage/whisper/
+logging:
+  version: 1
+  disable_existing_loggers: true
+  handlers:
+    file:
+      class: logging.FileHandler
+      filename: /var/log/graphite-api.log
 carbon:
   hosts:
     - 127.0.0.1:7002
