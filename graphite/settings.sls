@@ -26,7 +26,7 @@
 {%- set supervisor_init_name = supervisor_init.split('/')|last() %}
 
 # default supervisor config file
-# filename should be: "supervisord.conf" 
+# filename should be: "supervisord.conf"
 # as specified in the defaults: http://supervisord.org/configuration.html
 {%- set supervisor_conf = gc.get('supervisor_conf', pc.get('supervisor_conf', '/etc/supervisord.conf')) %}
 
