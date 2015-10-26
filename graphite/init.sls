@@ -108,9 +108,7 @@ local-dirs:
     - user: graphite
     - group: graphite
     - names:
-      - /var/run/gunicorn-graphite
       - /var/log/gunicorn-graphite
-      - /var/run/carbon
       - /var/log/carbon
 
 /opt/graphite/conf/storage-schemas.conf:
@@ -159,6 +157,17 @@ graphite-enable-vhost:
   file.symlink:
     - name: /etc/nginx/sites-enabled/graphite.conf
     - target: /etc/nginx/sites-available/graphite.conf
+
+graphite-pid-dir:
+  file.directory:
+    - name: /opt/graphite/run/
+    - makedirs: true
+    - user: graphite
+    - group: graphite
+    - recurse:
+      - user
+      - group
+
 
 nginx:
   service.running:
