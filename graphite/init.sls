@@ -70,13 +70,6 @@ graphite_user:
     - require:
       - group: graphite_group
 
-/opt/graphite/storage/graphite.db:
-  file.managed:
-    - source: salt://graphite/files/graphite.db
-    - replace: False
-    - user: graphite
-    - group: graphite
-
 /opt/graphite/storage:
   file.directory:
     - user: graphite
