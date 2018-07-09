@@ -61,4 +61,9 @@ The graphite state already depends on this one internally - eventually there sho
 Depends on the mysql-formula's mysql.client and mysql.server, makes the graphite server use mysql
 for the admin login.
 
+``graphite.nginx``
+--------------------
+
+Adds nginx vhost config. Depends on nginx service.
+
 Please note that this is a very basic (and monolithic) formula, not necessarily intended for production use.

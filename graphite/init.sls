@@ -134,22 +134,10 @@ restart-supervisor-for-graphite:
     - watch:
       - file: /etc/supervisor/conf.d/graphite.conf
 
-/etc/nginx/sites-available/graphite.conf:
-  file.managed:
-    - source: salt://graphite/files/graphite.conf.nginx
-    - template: jinja
-    - context:
-      graphite_host: {{ graphite.host }}
-
 graphite-api-conf:
   file.managed:
     - name: /etc/graphite-api.yaml
     - source: salt://graphite/files/graphite-api-conf.yaml
-
-graphite-enable-vhost:
-  file.symlink:
-    - name: /etc/nginx/sites-enabled/graphite.conf
-    - target: /etc/nginx/sites-available/graphite.conf
 
 graphite-pid-dir:
   file.directory:
@@ -160,13 +148,4 @@ graphite-pid-dir:
     - recurse:
       - user
       - group
-
-
-nginx:
-  service.running:
-    - enable: True
-    - reload: True
-    - watch:
-      - file: /etc/nginx/sites-available/graphite.conf
-
 {%- endif %}
