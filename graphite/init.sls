@@ -8,17 +8,15 @@ install-deps:
   pkg.installed:
     - names:
       - memcached
-      - python-pip
+      - python3-pip
       - nginx
       - gcc
-      - libffi-dev
 {%- if grains['os_family'] == 'Debian' %}
-      - python-dev
+      - python3-dev
       - sqlite3
-      - libcairo2
+      - build-essential
       - libcairo2-dev
-      - python-cairo
-      - pkg-config
+      - libffi-dev
       - gunicorn
 {%- elif grains['os_family'] == 'RedHat' %}
       - python-devel
@@ -51,7 +49,7 @@ install-{{ fontpkg }}-on-amazon:
 
 install-graphite-apps:
   cmd.run:
-    - name: pip install -r /tmp/graphite_reqs.txt
+    - name: pip3 install -r /tmp/graphite_reqs.txt --break-system-packages
     - unless: test -d /opt/graphite/webapp
     - require:
       - file: /tmp/graphite_reqs.txt

@@ -1,7 +1,7 @@
-django==1.5
-python-memcached
-django-tagging==0.3.6
-Twisted==11.1.0
+django
+python3-memcached
+django-tagging
+Twisted
 daemonize
 whisper=={{ graphite_version }}
 carbon=={{ graphite_version }}
