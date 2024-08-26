@@ -3,6 +3,6 @@ python3-memcached
 django-tagging
 Twisted
 daemonize
-whisper=={{ graphite_version }}
-carbon=={{ graphite_version }}
-graphite-api
+whisper
+carbon
+graphite-web

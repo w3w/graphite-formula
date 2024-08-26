@@ -44,8 +44,6 @@ install-{{ fontpkg }}-on-amazon:
   file.managed:
     - source: salt://graphite/files/graphite_reqs.txt
     - template: jinja
-    - context:
-      graphite_version: '0.9.12'
 
 install-graphite-apps:
   cmd.run:
